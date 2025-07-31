@@ -35,3 +35,30 @@
 
 7. ubah APP_URL = http://128.0.0.1:8000 dan APP_NAME
 
+8. Buat Resource untul City, OfficeSpace, dan BookingTrx , untuk OfficeBenefit, dan OfficePhoto tidak usah karena diastukan dengan
+    php artisan make:filament-resource OfficeSpaceResource
+    php artisan make:filament-resource BookingTrxResource
+    php artisan make:filament-resource CityResource
+
+9. Lakukan smylink agar poto yang diuploud bisa dikomsumsi public
+
+10 Pada bagian OfficeSpaceResource, pada boolean buat seperti ini
+    Select::make('is_open')
+                    ->options([
+                        true => 'Open',
+                        false => 'Not Open'
+                    ]),
+                Select::make('is_full_booked')
+                    ->options([
+                        true => 'Not Available',
+                        false => 'Available'
+                    ]),
+    Kemudian pada Table colum :
+     IconColumn::make('is_full_booked')
+                    ->boolean()
+                    ->trueColor('danger')
+                    ->falseColor('success')
+                    ->trueIcon('heroicon-o-x-circle')
+                    ->falseIcon('heroicon-o-check-circle')
+                    ->label('Available')
+

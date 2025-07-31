@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Str;
-
 class OfficeSpace extends Model
 {
     use HasFactory, SoftDeletes;
@@ -16,16 +14,16 @@ class OfficeSpace extends Model
         'name',
         'slug',
         'thumbnail',
+        'address',
         'about',
         'city_id',
         'is_open',
-        'id_full_book',
+        'is_full_booked',
         'price',
         'duration',
     ];
 
-    public function setNameAttribute($value)
-    {
+    public function setNameAttribute($value){
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
