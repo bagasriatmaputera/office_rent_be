@@ -1,0 +1,37 @@
+===== Laravel Configuration and Costum =====
+1. Buat model beserta migrationnya
+    php artisan make:model ApiKey -m
+    php artisan make:model City -m
+    php artisan make:model BookingTrx -m
+    php artisan make:model OfficeSpace -m
+    php artisan make:model OfficePhoto -m
+    php artisan make:model OfficeBenefit -m
+
+2. Buat migration sesuai kebutuhan kemudian
+    php artiasan migrate
+
+3. Atur relation tiap model
+
+4. Pada Bookingtrx buat method do and while untuk mendapatkan kode Transaction
+    public function generateUniqueTrxId()
+    {
+        $prefix = 'BRP0';
+        do {
+            $randomcode =   $prefix . mt_rand(1000, 9999);
+        } while (self::where('booking_trx_id', $randomcode)->exists());
+
+        return $randomcode;
+    }
+
+5. Buat accessor pada model yang punya slug karena lebih baik untuk Search Engine Optimizer
+     public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
+
+===== Instal Fillament =====
+6. Instal filament mengikuti documentation
+
+7. ubah APP_URL = http://128.0.0.1:8000 dan APP_NAME
+
