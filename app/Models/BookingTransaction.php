@@ -12,7 +12,7 @@ class BookingTransaction extends Model
     protected $fillable = [
         'name',
         'phone_number',
-        'booking_trx_id',
+        'booking_trx',
         'is_paid',
         'office_space_id',
         'total_amount',
