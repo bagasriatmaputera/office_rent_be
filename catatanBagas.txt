@@ -62,3 +62,25 @@
                     ->falseIcon('heroicon-o-check-circle')
                     ->label('Available')
 
+11. Kemudian Pada BookingTrxResource buat juga form dan tablenya
+
+12. Buat juga untuk ApiKey dan buat midlewarenya lalu beri logika header harus sama dengan ApiKey
+    public function handle(Request $request, Closure $next): Response
+    {
+        $key = $request->header('X-API-KEY');
+
+        if (!$key || !ApiKey::where('key',$key)->exists()) {
+            # code...
+            return response()->json(['message' => 'Unauthorized'],401);
+        }
+        return $next($request);
+    }
+
+13. Cantumkan midleware tadi pada app.php bootstrpas dengan alias
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias(([
+            'api_key' => \App\Http\Middleware\CheckApi::class
+        ]));
+    })
+
+14. Guanakan midleware pada Routing
