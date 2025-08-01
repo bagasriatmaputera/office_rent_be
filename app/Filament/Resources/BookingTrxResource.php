@@ -78,6 +78,7 @@ class BookingTrxResource extends Resource
                 ->falseColor('danger')
                 ->trueIcon('heroicon-o-check-circle')
                 ->falseIcon('heroicon-o-x-circle')
+                ->label('Sudah Bayar?')
             ])
             ->filters([
                 //
