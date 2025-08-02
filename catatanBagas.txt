@@ -84,3 +84,11 @@
     })
 
 14. Guanakan midleware pada Routing
+
+15. Buatkan Api/Resource untuk menjadikan json
+    php artisan make:resource Api/OfficeResource
+    php artisan make:resource Api/OfficePhotoResource
+    php artisan make:resource Api/OfficeBenefitsResource
+    php artisan make:resource Api/CityResource
+    php artisan make:resource Api/BookingTransactionResource
+    php artisan make:resource Api/ViewBookingTransactionResource
