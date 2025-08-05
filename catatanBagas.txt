@@ -92,3 +92,42 @@
     php artisan make:resource Api/CityResource
     php artisan make:resource Api/BookingTransactionResource
     php artisan make:resource Api/ViewBookingTransactionResource
+
+    lalu atur retrun data cth:
+     public function toArray(Request $request): array
+    {
+        return[
+            'id' => $this->id,
+            'name' => $this->name,
+            'phone_number' => $this->phone_number,
+            'booking_trx_id' => $this->booking_trx_id,
+            'is_paid' => $this->is_paid,
+            'duration' => $this->duration,
+            'total_amount' => $this->total_amount,
+            'started_at' => $this->started_at,
+            'ended_at' => $this->ended_at,
+            'office' => new OfficeResource($this->whenLoaded('office_space'))
+        ];
+    }
+
+16. Instal api 
+    php artisan instal:api
+
+17. Buat comtrolle pada folder Api/
+    php artisan make:controller Api/CityController
+    php artisan make:controller Api/OfficeController
+    php artisan make:controller Api/BookingTransactionController
+
+18. Buat Route dan lindungi dengan middleware yang sudah dibuat dengan alias
+    Route::middleware('api_key')->group(function(){
+    Route::get('/City/{city:slug}', [CityController::class, 'show']);
+    Route::apiResource('/Cities', CityController::class);
+
+    Route::get('/officespace/{officeSpace:slug}', [OfficeController::class, 'show']);
+    Route::apiResource('/officespaces', OfficeController::class);
+
+    Route::post('/booking-transaction', [BookingTransactionController::class, 'store']);
+    Route::post('/booking-transaction', [BookingTransactionController::class, 'booking-details']);
+    });
+
+19. Buat FE dari vite
