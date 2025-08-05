@@ -21,6 +21,8 @@ class OfficeResource extends JsonResource
             'thumbnail' =>  $this->thumbnail,
             'duration' => $this->duration,
             'price' => $this->price,
+            'is_open' => $this->is_open,
+            'is_full_book' => $this->is_full_booked,
             'photo' => OfficePhotoResource::collection($this->whenLoaded('photos')),
             'benefits' => OfficeBenefitsResource::collection($this->whenLoaded('benefits')),
             'city' => new CityResource($this->whenLoaded('city')),
