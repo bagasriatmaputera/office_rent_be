@@ -21,12 +21,12 @@ class BookingTransaction extends Model
         'ended_at'
     ];
 
-    public function generateUniqueTrxId()
+    public static function generateUniqueTrxId()
     {
         $prefix = 'BRP0';
         do {
             $randomcode =   $prefix . mt_rand(1000, 9999);
-        } while (self::where('booking_trx_id', $randomcode)->exists());
+        } while (self::where('booking_trx', $randomcode)->exists());
 
         return $randomcode;
     }
