@@ -110,7 +110,7 @@
         ];
     }
 
-16. Instal api 
+16. Instal api
     php artisan instal:api
 
 17. Buat comtrolle pada folder Api/
@@ -131,3 +131,20 @@
     });
 
 19. Buat FE dari vite
+
+20. Buat validation request php artisan make:request storeBookingTransaction
+
+21. set true, dan buat validasi data sesuai nama column/attribut model
+
+22. Pada controller store, gunakan validasi Request yang sudah dibuat maka nantinya akan tervalidasi secara otomatis,
+     public function store(StoreBookingTransaction $request)
+    {
+        $validateData = $request->validated();
+        $officeSpace = OfficeSpace::find($validateData['office_space_id']);
+        $validateData['is_paid'] = false;
+        $validateData['booking_trx'] = BookingTransaction::generateUniqueTrxId();
+        $validateData['duration'] = $officeSpace->duration;
+        $validateData['ended_at'] = (new \DateTime($validateData['started_at']))
+        ->modify("+{$officeSpace->duration} days")->format("Y-m-d");
+        $bookingTransaction= BookingTransaction::create($validateData);
+    }

@@ -18,6 +18,7 @@ class OfficeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'about' => $this->about,
+            'slug' => $this->slug,
             'thumbnail' =>  $this->thumbnail,
             'duration' => $this->duration,
             'price' => $this->price,
