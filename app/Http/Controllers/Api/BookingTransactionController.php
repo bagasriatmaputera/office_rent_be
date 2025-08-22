@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookingTransaction;
+use App\Http\Resources\Api\BookingTransactionResource;
 use App\Models\BookingTransaction;
 use App\Models\OfficeSpace;
 use Illuminate\Http\Request;
@@ -20,5 +21,10 @@ class BookingTransactionController extends Controller
         $validateData['ended_at'] = (new \DateTime($validateData['started_at']))
         ->modify("+{$officeSpace->duration} days")->format("Y-m-d");
         $bookingTransaction= BookingTransaction::create($validateData);
+
+        //membuat response untuk booking transaksi
+        $bookingTransaction->load('office_space');
+        return response()->json(new BookingTransactionResource($bookingTransaction));
+
     }
 }
