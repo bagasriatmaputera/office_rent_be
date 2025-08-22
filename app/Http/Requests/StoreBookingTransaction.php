@@ -26,7 +26,7 @@ class StoreBookingTransaction extends FormRequest
             'phone_number' => 'required|string|max:255',
             'started_at' => 'required|date',
             'office_space_id' => 'required',
-            'total_amount' => 'required|integer'
+            'total_amount' => 'requi    red|integer'
         ];
     }
 }
