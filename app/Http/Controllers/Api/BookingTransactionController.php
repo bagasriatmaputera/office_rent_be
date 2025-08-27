@@ -9,6 +9,7 @@ use App\Http\Resources\Api\ViewBookingTransactionResource;
 use App\Models\BookingTransaction;
 use App\Models\OfficeSpace;
 use Illuminate\Http\Request;
+use Twilio\Rest\Client;
 
 class BookingTransactionController extends Controller
 {
@@ -41,6 +42,24 @@ class BookingTransactionController extends Controller
             ->modify("+{$officeSpace->duration} days")->format("Y-m-d");
         $bookingTransaction = BookingTransaction::create($validateData);
 
+        // setting notifikasi dengan twilio
+        // Find your Account SID and Auth Token at twilio.com/console
+        // and set the environment variables. See http://twil.io/secure
+        // $sid = env("TWILIO_ACCOUNT_SID");
+        // $token = env("TWILIO_AUTH_TOKEN");
+        // $twilio = new Client($sid, $token);
+
+        // $twilio = new Client($sid, $token);
+
+        // $messageBody = "Hai {$bookingTransaction->name} pesanan anda akan segera kami proses apabila pembayaran sudah masuk di rekening kami";
+        // $message = $twilio->messages->create(
+        //     // "{$bookingTransaction->phone_number}",
+        //         "+62 819 3259 7642", // To
+        //     [
+        //         "body" => $messageBody,
+        //         "from" => env("TWILIO_PHONE_NUMBER"),
+        //     ]
+        // );
         //membuat response untuk booking transaksi
         $bookingTransaction->load('office_space');
         return response()->json(new BookingTransactionResource($bookingTransaction));
