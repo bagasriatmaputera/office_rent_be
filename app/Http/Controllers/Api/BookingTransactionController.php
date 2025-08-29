@@ -45,21 +45,27 @@ class BookingTransactionController extends Controller
         // setting notifikasi dengan twilio
         // Find your Account SID and Auth Token at twilio.com/console
         // and set the environment variables. See http://twil.io/secure
-        // $sid = env("TWILIO_ACCOUNT_SID");
-        // $token = env("TWILIO_AUTH_TOKEN");
-        // $twilio = new Client($sid, $token);
+        $sid = getenv("TWILIO_ACCOUNT_SID");
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio = new Client($sid, $token);
 
-        // $twilio = new Client($sid, $token);
-
-        // $messageBody = "Hai {$bookingTransaction->name} pesanan anda akan segera kami proses apabila pembayaran sudah masuk di rekening kami";
-        // $message = $twilio->messages->create(
-        //     // "{$bookingTransaction->phone_number}",
-        //         "+62 819 3259 7642", // To
-        //     [
-        //         "body" => $messageBody,
-        //         "from" => env("TWILIO_PHONE_NUMBER"),
-        //     ]
-        // );
+        $messageBody = "Hai {$bookingTransaction->name} pesanan anda akan segera kami proses apabila pembayaran sudah masuk di rekening kami";
+        $messagewa = $twilio->messages->create(
+            "whatsapp:+6285156432532", // to
+            array(
+                "from" => "whatsapp:+14155238886",
+                "contentSid" => "HXb5b62575e6e4ff6129ad7c8efe1f983e",
+                "body" => $messageBody
+            )
+        );
+        $messagesms = $twilio->messages
+            ->create(
+                "+6285156432532", // to
+                array(
+                    "from" => "+18633343782",
+                    "body" => $messageBody
+                )
+            );
         //membuat response untuk booking transaksi
         $bookingTransaction->load('office_space');
         return response()->json(new BookingTransactionResource($bookingTransaction));
